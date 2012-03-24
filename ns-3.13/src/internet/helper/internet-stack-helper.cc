@@ -387,6 +387,9 @@ InternetStackHelper::Install (Ptr<Node> node) const
 
       CreateAndAggregateObjectFromTypeId (node, "ns3::Ipv6L3Protocol");
       CreateAndAggregateObjectFromTypeId (node, "ns3::Icmpv6L4Protocol");
+	  //UDP6 by CHY {
+	  CreateAndAggregateObjectFromTypeId (node, "ns3::Udp6L4Protocol");
+	  //}
       /* TODO add UdpL4Protocol/TcpL4Protocol for IPv6 */
       Ptr<Ipv6> ipv6 = node->GetObject<Ipv6> ();
       Ptr<Ipv6RoutingProtocol> ipv6Routing = m_routingv6->Create (node);
