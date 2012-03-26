@@ -296,8 +296,11 @@ Ipv6InterfaceAddress Ipv6Interface::GetAddressMatchingDestination (Ipv6Address d
         }
     }
 
-  /*  NS_ASSERT_MSG (false, "Not matching address."); */
-  Ipv6InterfaceAddress ret;
+  //PMIPv6 Implementation by CHY
+  // If no matching global address for NS source address
+  // we use Link-Local Address instead
+  Ipv6InterfaceAddress ret = *m_addresses.begin();
+  
   return ret; /* quiet compiler */
 }
 

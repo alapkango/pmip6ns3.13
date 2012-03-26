@@ -706,4 +706,20 @@ RegularWifiMac::TxFailed (const WifiMacHeader &hdr)
   m_txErrCallback (hdr);
 }
 
+// PMIPv6 Implementation by CHY {
+void RegularWifiMac::SetNewHostCallback (Callback<void, Mac48Address, Mac48Address, uint8_t> newHost)
+{
+  NS_LOG_FUNCTION (this);
+  
+  m_newHostCallback = newHost;
+}
+
+void RegularWifiMac::SetNewPoaCallback (Callback<void, Mac48Address, Mac48Address, uint8_t> newPoa)
+{
+  NS_LOG_FUNCTION (this);
+  
+  m_newPoaCallback = newPoa;
+}
+//}
+
 } // namespace ns3

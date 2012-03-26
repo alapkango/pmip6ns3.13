@@ -210,6 +210,11 @@ public:
   virtual void SetCompressedBlockAckTimeout (Time blockAckTimeout);
   virtual Time GetCompressedBlockAckTimeout (void) const;
 
+  // PMIPv6 Implementation by CHY {
+  virtual void SetNewHostCallback (Callback<void, Mac48Address, Mac48Address, uint8_t> newHost);
+  virtual void SetNewPoaCallback (Callback<void, Mac48Address, Mac48Address, uint8_t> newPoa);
+  //}
+
 protected:
   virtual void DoStart ();
   virtual void DoDispose ();
@@ -225,7 +230,12 @@ protected:
   ForwardUpCallback m_forwardUp;
   Callback<void> m_linkUp;
   Callback<void> m_linkDown;
-
+  
+  // PMIPv6 Implementation by CHY {
+  Callback<void, Mac48Address, Mac48Address, uint8_t> m_newHostCallback;
+  Callback<void, Mac48Address, Mac48Address, uint8_t> m_newPoaCallback;
+  //}
+  
   Ssid m_ssid;
 
   /** This holds a pointer to the DCF instance for this WifiMac - used
