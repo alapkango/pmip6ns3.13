@@ -369,6 +369,9 @@ void Pmipv6Mag::HandleNewNode (Mac48Address from, Mac48Address to, uint8_t att)
 
   //reset (for the first registration)
   bule->ResetRetryCount ();
+  
+  //INFO mesg
+  NS_LOG_INFO ("Attached at " << Simulator::Now ().GetSeconds ());
 
   //send PBU
   SendMessage (p->Copy (), bule->GetLmaAddress (), 64);

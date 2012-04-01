@@ -309,6 +309,12 @@ void BindingUpdateList::Entry::StartReachableTimer ()
   NS_LOG_FUNCTION_NOARGS ();
   NS_ASSERT ( !m_reachableTime.IsZero() );
   
+  if (m_reachableTimer.IsRunning ())
+    {
+      NS_LOG_WARN ("ReachableTimer is running");
+      m_reachableTimer.Cancel ();
+    }
+  
   m_reachableTimer.SetFunction (&BindingUpdateList::Entry::FunctionReachableTimeout, this);
   m_reachableTimer.SetDelay ( Seconds (m_reachableTime.GetSeconds ()));
   m_reachableTimer.Schedule ();
@@ -323,6 +329,13 @@ void BindingUpdateList::Entry::StopReachableTimer ()
 void BindingUpdateList::Entry::StartRetransTimer ()
 {
   NS_LOG_FUNCTION_NOARGS ();
+  
+  if (m_retransTimer.IsRunning ())
+    {
+      NS_LOG_WARN ("RetransTimer is running");
+      m_retransTimer.Cancel ();
+    }
+  
   m_retransTimer.SetFunction (&BindingUpdateList::Entry::FunctionRetransTimeout, this);
   
   if (GetRetryCount () == 0)
@@ -347,9 +360,14 @@ void BindingUpdateList::Entry::StopRetransTimer ()
 void BindingUpdateList::Entry::StartRefreshTimer ()
 {
   NS_LOG_FUNCTION_NOARGS ();
-  
   NS_ASSERT ( !m_reachableTime.IsZero() );
   
+  if (m_refreshTimer.IsRunning ())
+    {
+      NS_LOG_WARN ("RefreshTimer is running");
+      m_refreshTimer.Cancel ();
+    }
+
   m_refreshTimer.SetFunction (&BindingUpdateList::Entry::FunctionRefreshTimeout, this);
   m_refreshTimer.SetDelay ( Seconds ( m_reachableTime.GetSeconds() * 0.9 ) );
   m_refreshTimer.Schedule ();

@@ -321,6 +321,12 @@ void BindingCache::Entry::StartReachableTimer ()
   NS_LOG_FUNCTION_NOARGS ();
   NS_ASSERT ( !m_reachableTime.IsZero() );
   
+  if (m_reachableTimer.IsRunning ())
+    {
+      NS_LOG_WARN ("ReachableTimer is running");
+      m_reachableTimer.Cancel ();
+    }
+    
   m_reachableTimer.SetFunction (&BindingCache::Entry::FunctionReachableTimeout, this);
   m_reachableTimer.SetDelay ( m_reachableTime );
   m_reachableTimer.Schedule ();
@@ -335,6 +341,12 @@ void BindingCache::Entry::StopReachableTimer ()
 void BindingCache::Entry::StartDeregisterTimer ()
 {
   NS_LOG_FUNCTION_NOARGS ();
+
+  if (m_deregisterTimer.IsRunning ())
+    {
+      NS_LOG_WARN ("ReachableTimer is running");
+      m_deregisterTimer.Cancel ();
+    }
   
   m_deregisterTimer.SetFunction (&BindingCache::Entry::FunctionDeregisterTimeout, this);
   m_deregisterTimer.SetDelay ( MilliSeconds (Ipv6MobilityL4Protocol::MIN_DELAY_BEFORE_BCE_DELETE) );
@@ -351,6 +363,12 @@ void BindingCache::Entry::StartRegisterTimer ()
 {
   NS_LOG_FUNCTION_NOARGS ();
   
+  if (m_registerTimer.IsRunning ())
+    {
+      NS_LOG_WARN ("RegisterTimer is running");
+      m_registerTimer.Cancel ();
+    }
+
   m_registerTimer.SetFunction (&BindingCache::Entry::FunctionRegisterTimeout, this);
   m_registerTimer.SetDelay ( MilliSeconds (Ipv6MobilityL4Protocol::MIN_DELAY_BEFORE_NEW_BCE_ASSIGN) );
   m_registerTimer.Schedule ();
